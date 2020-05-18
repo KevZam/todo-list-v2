@@ -51,7 +51,8 @@ p {
   color: #00204a;
 }
 
-form {
+/* All the forms that also have the class of item */
+form.item {
   text-align: center;
   margin-left: 20px;
 }
