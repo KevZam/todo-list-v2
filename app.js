@@ -89,27 +89,25 @@ app.post("/", function (req, res) {
   }
 });
 
-app.post("/delete", (req, res) => {
+app.post("/delete", function (req, res) {
   const checkedItemId = req.body.checkbox;
   const listName = req.body.listName;
 
   if (listName === "Today") {
-    Item.findByIdAndRemove(checkedItemId, (err) => {
-      if (err) {
-        console.log(err)
+    Item.findByIdAndRemove(checkedItemId, function (err) {
+      if (!err) {
+        console.log("Successfully deleted checked item.");
+        res.redirect("/");
       }
-      else {
-        List.findOneAndUpdate({ name: listName }, { $pull: { items: { _id: checkedItemId } } }, function (err, foundList) {
-          if (!err) {
-            res.redirect("/" + listName)
-          }
-        })
+    });
+  } else {
+    List.findOneAndUpdate({ name: listName }, { $pull: { items: { _id: checkedItemId } } }, function (err, foundList) {
+      if (!err) {
+        res.redirect("/" + listName);
       }
-    })
-    res.redirect("/")
+    });
   }
-
-})
+});
 
 app.get("/:customListName", function (req, res) {
   const customListName = _.capitalize(req.params.customListName);
