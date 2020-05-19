@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // set up database 
-mongoose.connect("mongodb://localhost:27017/todoListDB", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://admin-kevan:Test123@cluster0-xrmtg.mongodb.net/todoListDB", { useNewUrlParser: true });
 
 // set up schema 
 const itemsSchema = {
@@ -87,10 +87,6 @@ app.post("/", function (req, res) {
       res.redirect("/" + listName)
     })
   }
-
-
-
-
 });
 
 app.post("/delete", (req, res) => {
